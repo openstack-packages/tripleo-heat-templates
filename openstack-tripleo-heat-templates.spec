@@ -1,6 +1,6 @@
 Name:		openstack-tripleo-heat-templates
 Summary:	Heat templates for TripleO
-Version:	0.4.1
+Version:	0.4.2
 Release:	1%{?dist}
 License:	ASL 2.0
 Group:		System Environment/Base
@@ -50,6 +50,9 @@ cp -ar *.yaml %{buildroot}/%{_datadir}/%{name}
 %{_bindir}/tripleo-heat-merge
 
 %changelog
+* Mon Mar 24 2014 James Slagle <jslagle@redhat.com> - 0.4.2-1
+- Bump to 0.4.2.
+
 * Fri Mar 21 2014 James Slagle <jslagle@redhat.com> - 0.4.1-1
 - Rebase onto 0.4.1.
 - Add patch to switch from rabbit to qpid as default message bus
