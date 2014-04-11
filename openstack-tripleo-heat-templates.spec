@@ -1,7 +1,7 @@
 Name:		openstack-tripleo-heat-templates
 Summary:	Heat templates for TripleO
 Version:	0.4.2
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	ASL 2.0
 Group:		System Environment/Base
 URL:		https://wiki.openstack.org/wiki/TripleO
@@ -18,10 +18,14 @@ Patch0001:	0001-Add-BlockStorageConfig0.patch
 # git format-patch -1 55722cc7fa4624e4738bb695348955745e297649
 Patch0002:	0002-Expose-dnsmasq-options.patch
 
+# https://review.openstack.org/#/c/85534/
+Patch0003:	0003-Use-ip-address-in-mysql-connection-url.patch
+
 # Per: # https://github.com/openstack/tripleo-image-elements/tree/master/elements/qpidd,
 # this patch sed's the templates to switch them all over to use qpid, which is
 # the default we want for RDO.
-Patch0003:	0003-use-qpid.patch
+Patch0004:	0004-Use-qpid.patch
+
 
 BuildArch:	noarch
 BuildRequires:	python2-devel
@@ -41,6 +45,7 @@ building Heat Templates to do deployments of OpenStack.
 %patch0001 -p1
 %patch0002 -p1
 %patch0003 -p1
+%patch0004 -p1
 
 %build
 %{__python2} setup.py build
@@ -58,6 +63,9 @@ cp -ar *.yaml %{buildroot}/%{_datadir}/%{name}
 %{_bindir}/tripleo-heat-merge
 
 %changelog
+* Thu Apr 10 2014 James Slagle <jslagle@redhat.com> - 0.4.2-5
+- Add patch to use IP address for MySQL connection
+
 * Thu Mar 27 2014 James Slagle <jslagle@redhat.com> - 0.4.2-4
 - Update patch 0001-Add-BlockStorageConfig0.patch to include NeutronNetworkType
   parameter.

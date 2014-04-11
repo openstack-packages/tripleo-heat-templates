@@ -1,0 +1,156 @@
+From 0468a4287f5ac5cb9e0ae5497da322cde712c839 Mon Sep 17 00:00:00 2001
+From: Richard Su <rwsu@redhat.com>
+Date: Fri, 4 Apr 2014 18:45:12 -0700
+Subject: [PATCH 2/3] Use ip address in mysql connection url
+
+Systems with selinux enabled do not allow socket based
+connections to mysql.
+
+Change-Id: Ic65dc9a58f2a8909b371ef5718b0693df9e6054e
+---
+ overcloud-source.yaml | 91 +++++++++++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 84 insertions(+), 7 deletions(-)
+
+diff --git a/overcloud-source.yaml b/overcloud-source.yaml
+index add6f5c..fc4c422 100644
+--- a/overcloud-source.yaml
++++ b/overcloud-source.yaml
+@@ -293,7 +293,18 @@ Resources:
+         public_interface_ip:
+           Ref: NeutronPublicInterfaceIP
+       cinder:
+-        db: mysql://cinder:unset@localhost/cinder
++        db:
++          Fn::Join:
++            - ''
++            - - 'mysql://cinder:unset@'
++              - Fn::Select:
++                - 0
++                - Fn::Select:
++                  - 'ctlplane'
++                  - Fn::GetAtt:
++                    - notCompute0
++                    - networks
++              - '/cinder'
+         volume_size_mb: '5000'
+         service-password:
+           Ref: CinderPassword
+@@ -310,7 +321,18 @@ Resources:
+       db-password: unset
+       glance:
+         backend: swift
+-        db: mysql://glance:unset@localhost/glance
++        db:
++          Fn::Join:
++            - ''
++            - - 'mysql://glance:unset@'
++              - Fn::Select:
++                - 0
++                - Fn::Select:
++                  - 'ctlplane'
++                  - Fn::GetAtt:
++                    - notCompute0
++                    - networks
++              - '/glance'
+         host:
+           Fn::Select:
+            - 0
+@@ -334,7 +356,18 @@ Resources:
+         admin_tenant_name: service
+         admin_user: heat
+         auth_encryption_key: unset___________
+-        db: mysql://heat:unset@localhost/heat
++        db:
++          Fn::Join:
++            - ''
++            - - 'mysql://heat:unset@'
++              - Fn::Select:
++                - 0
++                - Fn::Select:
++                  - 'ctlplane'
++                  - Fn::GetAtt:
++                    - notCompute0
++                    - networks
++              - '/heat'
+         stack_domain_admin_password: {Ref: HeatStackDomainAdminPassword}
+         watch_server_url:
+           Fn::Join:
+@@ -384,7 +417,18 @@ Resources:
+                 - networks
+           - {Ref: CloudName}
+       keystone:
+-        db: mysql://keystone:unset@localhost/keystone
++        db:
++          Fn::Join:
++            - ''
++            - - 'mysql://keystone:unset@'
++              - Fn::Select:
++                - 0
++                - Fn::Select:
++                  - 'ctlplane'
++                  - Fn::GetAtt:
++                    - notCompute0
++                    - networks
++              - '/keystone'
+         host:
+           Fn::Select:
+             - 0
+@@ -423,19 +467,52 @@ Resources:
+             Ref: NeutronPublicInterfaceDefaultRoute
+           physical_bridge: br-ex
+           tenant_network_type: gre
+-        ovs_db: mysql://neutron:unset@localhost/ovs_neutron?charset=utf8
++        ovs_db:
++          Fn::Join:
++            - ''
++            - - 'mysql://neutron:unset@'
++              - Fn::Select:
++                - 0
++                - Fn::Select:
++                  - 'ctlplane'
++                  - Fn::GetAtt:
++                    - notCompute0
++                    - networks
++              - '/ovs_neutron?charset=utf8'
+         service-password:
+           Ref: NeutronPassword
+         dnsmasq-options:
+           Ref: NeutronDnsmasqOptions
+       ceilometer:
+-        db: mysql://ceilometer:unset@localhost/ceilometer
++        db:
++          Fn::Join:
++            - ''
++            - - 'mysql://ceilometer:unset@'
++              - Fn::Select:
++                - 0
++                - Fn::Select:
++                  - 'ctlplane'
++                  - Fn::GetAtt:
++                    - notCompute0
++                    - networks
++              - '/ceilometer'
+         metering_secret: {Ref: CeilometerMeteringSecret}
+         service-password:
+           Ref: CeilometerPassword
+       nova:
+         compute_driver: libvirt.LibvirtDriver
+-        db: mysql://nova:unset@localhost/nova
++        db:
++          Fn::Join:
++            - ''
++            - - 'mysql://nova:unset@'
++              - Fn::Select:
++                - 0
++                - Fn::Select:
++                  - 'ctlplane'
++                  - Fn::GetAtt:
++                    - notCompute0
++                    - networks
++              - '/nova'
+         default_floating_pool:
+           ext-net
+         host:
+-- 
+1.9.0
+

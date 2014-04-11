@@ -1,7 +1,7 @@
-From bfb69e018573e23e45f2369ed818c1f4b29f46f0 Mon Sep 17 00:00:00 2001
+From 67ddcc634e1bf9ee4d2fce78750a50498a375eb6 Mon Sep 17 00:00:00 2001
 From: James Slagle <jslagle@redhat.com>
 Date: Tue, 25 Mar 2014 08:34:29 -0400
-Subject: [PATCH] Expose dnsmasq options
+Subject: [PATCH 1/3] Expose dnsmasq options
 
 Adds a new parameter, NeutronDnsmasqOptions, to the overcloud template.
 
@@ -10,9 +10,8 @@ will allow us to configure mtu to be 1400 for tenant instances on the
 overcloud.  This should help with poor network performance and vm's that
 are just plain unreachable via ssh due to the GRE tunnel overhead.
 
-I think it's also worth considering just making the default here:
+The default here has been set to:
 dhcp-option-force=26,1400
-instead of ''.
 
 This is the recommended way to configure OpenStack with the Open vSwitch
 plugin per:
@@ -30,7 +29,7 @@ Partial-Bug: #1270646
  1 file changed, 6 insertions(+)
 
 diff --git a/overcloud-source.yaml b/overcloud-source.yaml
-index 90543bb..bc24c86 100644
+index 90543bb..add6f5c 100644
 --- a/overcloud-source.yaml
 +++ b/overcloud-source.yaml
 @@ -121,6 +121,10 @@ Parameters:
@@ -38,8 +37,8 @@ index 90543bb..bc24c86 100644
      Description: If set, the public interface is a vlan with this device as the raw device.
      Type: String
 +  NeutronDnsmasqOptions:
-+    Default: ''
-+    Description: Dnsmasq options for neutron-dhcp-agent
++    Default: 'dhcp-option-force=26,1400'
++    Description: Dnsmasq options for neutron-dhcp-agent. The default value here forces MTU to be set to 1400 to account for the gre tunnel overhead. See https://bugs.launchpad.net/tripleo/+bug/1270646
 +    Type: String
    notcomputeImage:
      Type: String
@@ -54,5 +53,5 @@ index 90543bb..bc24c86 100644
          db: mysql://ceilometer:unset@localhost/ceilometer
          metering_secret: {Ref: CeilometerMeteringSecret}
 -- 
-1.8.5.3
+1.9.0
 

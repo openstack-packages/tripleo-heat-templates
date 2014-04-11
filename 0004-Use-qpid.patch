@@ -1,9 +1,9 @@
-From b322fdfe366754bf6b06582a572c295a60b4495c Mon Sep 17 00:00:00 2001
+From 78844155ea7dbfb7249766d9aea9717845af1279 Mon Sep 17 00:00:00 2001
 From: James Slagle <jslagle@redhat.com>
-Date: Wed, 26 Mar 2014 13:39:26 -0400
-Subject: [PATCH] use qpid
+Date: Thu, 10 Apr 2014 15:03:31 -0400
+Subject: [PATCH 3/3] Use qpid
 
-Change-Id: I641fea900fb31a8f4bc04deeeb1f2c44696283d5
+Change-Id: I883b33d7fc3bc489a636197726c1fcf19caa6d9d
 ---
  block-storage-nfs.yaml     | 2 +-
  block-storage.yaml         | 2 +-
@@ -27,10 +27,10 @@ index eabe983..9fba1eb 100644
          username: {Ref: RabbitUserName}
          password: {Ref: RabbitPassword}
 diff --git a/block-storage.yaml b/block-storage.yaml
-index bc14dc8..a4c76e9 100644
+index 507ca63..303582e 100644
 --- a/block-storage.yaml
 +++ b/block-storage.yaml
-@@ -79,7 +79,7 @@ Resources:
+@@ -59,7 +59,7 @@ Resources:
            Ref: CinderPassword
          volume: 'true'
        admin-password: {Ref: AdminPassword}
@@ -66,10 +66,10 @@ index d2ca90f..d297942 100644
          username: {Ref: RabbitUserName}
          password: {Ref: RabbitPassword}
 diff --git a/overcloud-source.yaml b/overcloud-source.yaml
-index 90543bb..500d3c3 100644
+index fc4c422..63299f6 100644
 --- a/overcloud-source.yaml
 +++ b/overcloud-source.yaml
-@@ -454,7 +454,7 @@ Resources:
+@@ -537,7 +537,7 @@ Resources:
              - SecretAccessKey
            stack_name:
              Ref: AWS::StackName
@@ -92,5 +92,5 @@ index f18612c..4d1461e 100644
          username:
            Ref: RabbitUserName
 -- 
-1.8.5.3
+1.9.0
 
