@@ -1,16 +1,24 @@
-From bef2aec2ef2ae78696e0282d769039ad4717a200 Mon Sep 17 00:00:00 2001
+From 0019af44664c9104d5cd55ea73e15a35ac45dd72 Mon Sep 17 00:00:00 2001
 From: James Slagle <jslagle@redhat.com>
-Date: Wed, 26 Mar 2014 12:36:48 -0400
-Subject: [PATCH] Add BlockStorageConfig0
+Date: Thu, 27 Mar 2014 11:00:28 -0400
+Subject: [PATCH 1/5] Add BlockStorage0Config Resource
 
-Change-Id: Ief8f87d57329640416d760dda0575207dbf89921
+Add a BlockStorage0Config resource in the block-storage.yaml template.
+This was missing previously and was causing the behavior of having all
+block storage nodes only being created after all other nodes were up in
+a deployment (I presume b/c of the wait conditions).
+
+Also, we need the BlockStorage0Config resource so that we can get the
+configuration of neutron-openvswitch-agent from the metadata, previously
+the values in the file were unset, causing the service to fail to start.
+
+Change-Id: I297de24079d1ece66d35213b4ef1f2c8c50e73f0
 ---
- block-storage.yaml        | 45 +++++++++++++++++++++++++++++++++++++++++----
- swift-storage-source.yaml |  4 ++++
- 2 files changed, 45 insertions(+), 4 deletions(-)
+ block-storage.yaml | 45 +++++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 41 insertions(+), 4 deletions(-)
 
 diff --git a/block-storage.yaml b/block-storage.yaml
-index 507ca63..1129355 100644
+index 453a0ac..e651b4f 100644
 --- a/block-storage.yaml
 +++ b/block-storage.yaml
 @@ -8,17 +8,24 @@ Parameters:
@@ -52,7 +60,7 @@ index 507ca63..1129355 100644
 +          stack_name: {Ref: 'AWS::StackName'}
 +          path: BlockStorage0Config.Metadata
 +      OpenStack::ImageBuilder::Elements: [ cinder ]
-+  BlockStorage0Config:      
++  BlockStorage0Config:
 +    Type: AWS::AutoScaling::LaunchConfiguration
 +    Properties:
 +      InstanceType: '0'
@@ -75,7 +83,7 @@ index 507ca63..1129355 100644
        keystone:
          host: {"Fn::Select": [ 0, {"Fn::Select": [ "ctlplane", {"Fn::GetAtt": [notCompute0, networks]} ]} ] }
        cinder:
-@@ -65,3 +88,17 @@ Resources:
+@@ -64,3 +87,17 @@ Resources:
          password: {Ref: RabbitPassword}
        interfaces:
          control: {Ref: NeutronPublicInterface}
@@ -93,28 +101,6 @@ index 507ca63..1129355 100644
 +          enable_tunneling: {Ref: NeutronEnableTunnelling}
 +        service-password:
 +          Ref: NeutronPassword
-diff --git a/swift-storage-source.yaml b/swift-storage-source.yaml
-index 92e11e6..16f2f36 100644
---- a/swift-storage-source.yaml
-+++ b/swift-storage-source.yaml
-@@ -11,6 +11,9 @@ Parameters:
-   NeutronNetworkType:
-     Type: String
-     Default: 'gre'
-+  NeutronEnableTunnelling:
-+    Type: String
-+    Default: True
- Resources:
-   SwiftStorageAccessPolicy:
-     Type: OS::Heat::AccessPolicy
-@@ -81,6 +84,7 @@ Resources:
-                   - SwiftStorage0
-                   - networks
-           tenant_network_type: {Ref: NeutronNetworkType}
-+          enable_tunneling: {Ref: NeutronEnableTunnelling}
-         service-password:
-           Ref: NeutronPassword
-       swift:
 -- 
-1.8.5.3
+1.9.0
 

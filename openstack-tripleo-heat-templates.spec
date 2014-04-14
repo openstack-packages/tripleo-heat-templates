@@ -1,30 +1,31 @@
 Name:		openstack-tripleo-heat-templates
 Summary:	Heat templates for TripleO
-Version:	0.4.2
-Release:	5%{?dist}
+Version:	0.4.4
+Release:	1%{?dist}
 License:	ASL 2.0
 Group:		System Environment/Base
 URL:		https://wiki.openstack.org/wiki/TripleO
 Source0:	http://tarballs.openstack.org/tripleo-heat-templates/tripleo-heat-templates-%{version}.tar.gz
 
-# Not yet submitted upstream
-# Add BlockStorage0Config and enable_tunneling to block-storage and
-# swift-storage-source ovs metadata sections.
+# Add BlockStorage0Config and enable_tunneling to block-storage
 # https://review.openstack.org/83416
+Patch0001:	Add-BlockStorage0Config-Resource.patch
+
+# Add enable_tunneling to swift storage
 # https://review.openstack.org/83417
-Patch0001:	0001-Add-BlockStorageConfig0.patch
+Patch0002:	Add-enable_tunneling-to-swift-storage-metadata.patch
 
 # https://review.openstack.org/#/c/82803/
-# git format-patch -1 55722cc7fa4624e4738bb695348955745e297649
-Patch0002:	0002-Expose-dnsmasq-options.patch
+Patch0003:	Expose-dnsmasq-options.patch
 
 # https://review.openstack.org/#/c/85534/
-Patch0003:	0003-Use-ip-address-in-mysql-connection-url.patch
+Patch0004:	Use-127.0.0.1-in-mysql-connection-url.patch
 
 # Per: # https://github.com/openstack/tripleo-image-elements/tree/master/elements/qpidd,
 # this patch sed's the templates to switch them all over to use qpid, which is
 # the default we want for RDO.
-Patch0004:	0004-Use-qpid.patch
+# sed -i "s/rabbit:/qpid:/" *.yaml
+Patch0005:	Use-qpid.patch
 
 
 BuildArch:	noarch
@@ -46,6 +47,7 @@ building Heat Templates to do deployments of OpenStack.
 %patch0002 -p1
 %patch0003 -p1
 %patch0004 -p1
+%patch0005 -p1
 
 %build
 %{__python2} setup.py build
@@ -63,6 +65,9 @@ cp -ar *.yaml %{buildroot}/%{_datadir}/%{name}
 %{_bindir}/tripleo-heat-merge
 
 %changelog
+* Mon Apr 14 2014 James Slagle <jslagle@redhat.com> - 0.4.4-1
+- Bump to 0.4.4 and update patches
+
 * Thu Apr 10 2014 James Slagle <jslagle@redhat.com> - 0.4.2-5
 - Add patch to use IP address for MySQL connection
 

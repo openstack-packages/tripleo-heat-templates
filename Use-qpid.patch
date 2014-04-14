@@ -1,9 +1,9 @@
-From 78844155ea7dbfb7249766d9aea9717845af1279 Mon Sep 17 00:00:00 2001
+From 069f7fde8764aab472ce36b405e46cbb7607bc5a Mon Sep 17 00:00:00 2001
 From: James Slagle <jslagle@redhat.com>
-Date: Thu, 10 Apr 2014 15:03:31 -0400
-Subject: [PATCH 3/3] Use qpid
+Date: Mon, 14 Apr 2014 15:00:59 -0400
+Subject: [PATCH 5/5] Use qpid
 
-Change-Id: I883b33d7fc3bc489a636197726c1fcf19caa6d9d
+Change-Id: I2ca94b851cb4b0a0a369061d3a703d96671855d6
 ---
  block-storage-nfs.yaml     | 2 +-
  block-storage.yaml         | 2 +-
@@ -14,10 +14,10 @@ Change-Id: I883b33d7fc3bc489a636197726c1fcf19caa6d9d
  6 files changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/block-storage-nfs.yaml b/block-storage-nfs.yaml
-index eabe983..9fba1eb 100644
+index d00484b..8dcaa43 100644
 --- a/block-storage-nfs.yaml
 +++ b/block-storage-nfs.yaml
-@@ -62,7 +62,7 @@ Resources:
+@@ -61,7 +61,7 @@ Resources:
          nfs_shares:
            - {"Fn::Join": ['', [{"Fn::Select": [ 0, {"Fn::Select": [ "ctlplane", {"Fn::GetAtt": [notCompute0, networks]} ]} ] } , ':/mnt/state/var/lib/nfs_share']]}
        admin-password: {Ref: AdminPassword}
@@ -27,12 +27,12 @@ index eabe983..9fba1eb 100644
          username: {Ref: RabbitUserName}
          password: {Ref: RabbitPassword}
 diff --git a/block-storage.yaml b/block-storage.yaml
-index 507ca63..303582e 100644
+index e651b4f..fdf0889 100644
 --- a/block-storage.yaml
 +++ b/block-storage.yaml
-@@ -59,7 +59,7 @@ Resources:
+@@ -81,7 +81,7 @@ Resources:
+         service-password:
            Ref: CinderPassword
-         volume: 'true'
        admin-password: {Ref: AdminPassword}
 -      rabbit:
 +      qpid:
@@ -53,10 +53,10 @@ index 5a4d9d2..f8be880 100644
            '127.0.0.1'
          username:
 diff --git a/nova-compute-instance.yaml b/nova-compute-instance.yaml
-index d2ca90f..d297942 100644
+index 8121736..24e658a 100644
 --- a/nova-compute-instance.yaml
 +++ b/nova-compute-instance.yaml
-@@ -189,7 +189,7 @@ Resources:
+@@ -210,7 +210,7 @@ Resources:
          service-password:
            Ref: NeutronPassword
        admin-password: {Ref: AdminPassword}
@@ -66,10 +66,10 @@ index d2ca90f..d297942 100644
          username: {Ref: RabbitUserName}
          password: {Ref: RabbitPassword}
 diff --git a/overcloud-source.yaml b/overcloud-source.yaml
-index fc4c422..63299f6 100644
+index 9c11e32..5c1d3f1 100644
 --- a/overcloud-source.yaml
 +++ b/overcloud-source.yaml
-@@ -537,7 +537,7 @@ Resources:
+@@ -481,7 +481,7 @@ Resources:
              - SecretAccessKey
            stack_name:
              Ref: AWS::StackName
@@ -79,10 +79,10 @@ index fc4c422..63299f6 100644
            Fn::Select:
              - 0
 diff --git a/undercloud-source.yaml b/undercloud-source.yaml
-index f18612c..4d1461e 100644
+index bfed9e7..94ef385 100644
 --- a/undercloud-source.yaml
 +++ b/undercloud-source.yaml
-@@ -213,7 +213,7 @@ Resources:
+@@ -217,7 +217,7 @@ Resources:
            enable_tunneling: 'False'
          service-password:
            Ref: NeutronPassword

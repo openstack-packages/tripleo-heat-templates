@@ -1,0 +1,41 @@
+From 0da65a6ffffdfb62d624390150a5b47a2a196425 Mon Sep 17 00:00:00 2001
+From: James Slagle <jslagle@redhat.com>
+Date: Thu, 27 Mar 2014 11:02:41 -0400
+Subject: [PATCH 2/5] Add enable_tunneling to swift storage metadata
+
+Add the enable_tunneling option to the neutron-openvswitch-agent
+metadata for the swift storage template. If not preset, this option is
+left blank in the openvswitch plugin configuration plugin. This causes
+the service to fail to start because a blank value is not permissible
+for a boolean option.
+
+Change-Id: Ieadcdab295913121bd00dbd25e4245024bc2240f
+---
+ swift-storage-source.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/swift-storage-source.yaml b/swift-storage-source.yaml
+index 92e11e6..16f2f36 100644
+--- a/swift-storage-source.yaml
++++ b/swift-storage-source.yaml
+@@ -11,6 +11,9 @@ Parameters:
+   NeutronNetworkType:
+     Type: String
+     Default: 'gre'
++  NeutronEnableTunnelling:
++    Type: String
++    Default: True
+ Resources:
+   SwiftStorageAccessPolicy:
+     Type: OS::Heat::AccessPolicy
+@@ -81,6 +84,7 @@ Resources:
+                   - SwiftStorage0
+                   - networks
+           tenant_network_type: {Ref: NeutronNetworkType}
++          enable_tunneling: {Ref: NeutronEnableTunnelling}
+         service-password:
+           Ref: NeutronPassword
+       swift:
+-- 
+1.9.0
+

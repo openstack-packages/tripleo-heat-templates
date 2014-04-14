@@ -1,0 +1,210 @@
+From 3f07da52cb40f47d68dead254ec74daef68e9ee3 Mon Sep 17 00:00:00 2001
+From: Richard Su <rwsu@redhat.com>
+Date: Thu, 10 Apr 2014 17:53:13 -0700
+Subject: [PATCH 4/5] Use 127.0.0.1 in mysql connection url
+
+Substituted localhost with 127.0.0.1.
+
+By default, systems with selinux enabled do not allow socket based
+connections to mysql. Socket based connections are used when
+localhost is in the mysql connection url.
+
+Change-Id: Ic65dc9a58f2a8909b371ef5718b0693df9e6054e
+---
+ overcloud-source.yaml            | 14 +++++++-------
+ tuskar-source.yaml               |  2 +-
+ undercloud-bm-source.yaml        |  4 ++--
+ undercloud-source.yaml           | 10 +++++-----
+ undercloud-vm-ironic-source.yaml |  4 ++--
+ undercloud-vm-source.yaml        |  4 ++--
+ 6 files changed, 19 insertions(+), 19 deletions(-)
+
+diff --git a/overcloud-source.yaml b/overcloud-source.yaml
+index 37acb84..9c11e32 100644
+--- a/overcloud-source.yaml
++++ b/overcloud-source.yaml
+@@ -314,7 +314,7 @@ Resources:
+         public_interface_ip:
+           Ref: NeutronPublicInterfaceIP
+       cinder:
+-        db: mysql://cinder:unset@localhost/cinder
++        db: mysql://cinder:unset@127.0.0.1/cinder
+         volume_size_mb: '5000'
+         service-password:
+           Ref: CinderPassword
+@@ -331,7 +331,7 @@ Resources:
+       db-password: unset
+       glance:
+         backend: swift
+-        db: mysql://glance:unset@localhost/glance
++        db: mysql://glance:unset@127.0.0.1/glance
+         host:
+           Fn::Select:
+            - 0
+@@ -355,7 +355,7 @@ Resources:
+         admin_tenant_name: service
+         admin_user: heat
+         auth_encryption_key: unset___________
+-        db: mysql://heat:unset@localhost/heat
++        db: mysql://heat:unset@127.0.0.1/heat
+         stack_domain_admin_password: {Ref: HeatStackDomainAdminPassword}
+         watch_server_url:
+           Fn::Join:
+@@ -405,7 +405,7 @@ Resources:
+                 - networks
+           - {Ref: CloudName}
+       keystone:
+-        db: mysql://keystone:unset@localhost/keystone
++        db: mysql://keystone:unset@127.0.0.1/keystone
+         host:
+           Fn::Select:
+             - 0
+@@ -444,19 +444,19 @@ Resources:
+             Ref: NeutronPublicInterfaceDefaultRoute
+           physical_bridge: br-ex
+           tenant_network_type: gre
+-        ovs_db: mysql://neutron:unset@localhost/ovs_neutron?charset=utf8
++        ovs_db: mysql://neutron:unset@127.0.0.1/ovs_neutron?charset=utf8
+         service-password:
+           Ref: NeutronPassword
+         dnsmasq-options:
+           Ref: NeutronDnsmasqOptions
+       ceilometer:
+-        db: mysql://ceilometer:unset@localhost/ceilometer
++        db: mysql://ceilometer:unset@127.0.0.1/ceilometer
+         metering_secret: {Ref: CeilometerMeteringSecret}
+         service-password:
+           Ref: CeilometerPassword
+       nova:
+         compute_driver: libvirt.LibvirtDriver
+-        db: mysql://nova:unset@localhost/nova
++        db: mysql://nova:unset@127.0.0.1/nova
+         default_floating_pool:
+           ext-net
+         host:
+diff --git a/tuskar-source.yaml b/tuskar-source.yaml
+index 6f84292..b47ce98 100644
+--- a/tuskar-source.yaml
++++ b/tuskar-source.yaml
+@@ -13,7 +13,7 @@ Resources:
+     Metadata:
+       OpenStack::Role: undercloudConfig
+       tuskar:
+-        db: mysql://tuskar:unset@localhost/tuskar?charset=utf8
++        db: mysql://tuskar:unset@127.0.0.1/tuskar?charset=utf8
+         user: admin
+         tenant_name: admin
+         password: {Ref: AdminPassword}
+diff --git a/undercloud-bm-source.yaml b/undercloud-bm-source.yaml
+index ff00d28..4f38217 100644
+--- a/undercloud-bm-source.yaml
++++ b/undercloud-bm-source.yaml
+@@ -14,7 +14,7 @@ Resources:
+       nova:
+         compute_hostname: undercloud
+         compute_driver: baremetal.driver.BareMetalDriver
+-        db: mysql://nova:unset@localhost/nova
++        db: mysql://nova:unset@127.0.0.1/nova
+         default_ephemeral_format: ext4
+         host: 127.0.0.1
+         metadata-proxy: false
+@@ -24,7 +24,7 @@ Resources:
+         baremetal:
+           arch:
+             Ref: BaremetalArch
+-          db: mysql://nova:unset@localhost/nova_bm
++          db: mysql://nova:unset@127.0.0.1/nova_bm
+           power_manager:
+             Ref: PowerManager
+           pxe_deploy_timeout: 2400
+diff --git a/undercloud-source.yaml b/undercloud-source.yaml
+index 90724b7..bfed9e7 100644
+--- a/undercloud-source.yaml
++++ b/undercloud-source.yaml
+@@ -130,14 +130,14 @@ Resources:
+               - undercloud
+               - networks
+       cinder:
+-        db: mysql://cinder:unset@localhost/cinder
++        db: mysql://cinder:unset@127.0.0.1/cinder
+         volume_size_mb: '5000'
+       completion-handle:
+         Ref: notCompute0CompletionHandle
+       db-password: unset
+       glance:
+         backend: file
+-        db: mysql://glance:unset@localhost/glance
++        db: mysql://glance:unset@127.0.0.1/glance
+         host: 127.0.0.1
+         service-password:
+           Ref: GlancePassword
+@@ -151,7 +151,7 @@ Resources:
+         admin_tenant_name: service
+         admin_user: heat
+         auth_encryption_key: unset___________
+-        db: mysql://heat:unset@localhost/heat
++        db: mysql://heat:unset@127.0.0.1/heat
+         stack_domain_admin_password: {Ref: HeatStackDomainAdminPassword}
+         watch_server_url:
+           Fn::Join:
+@@ -201,11 +201,11 @@ Resources:
+           stack_name:
+             Ref: AWS::StackName
+       keystone:
+-        db: mysql://keystone:unset@localhost/keystone
++        db: mysql://keystone:unset@127.0.0.1/keystone
+         host: 127.0.0.1
+       neutron:
+         host: 127.0.0.1
+-        ovs_db: mysql://neutron:unset@localhost/ovs_neutron?charset=utf8
++        ovs_db: mysql://neutron:unset@127.0.0.1/ovs_neutron?charset=utf8
+         ovs:
+           public_interface:
+             Ref: NeutronPublicInterface
+diff --git a/undercloud-vm-ironic-source.yaml b/undercloud-vm-ironic-source.yaml
+index 2e9555a..d2f0855 100644
+--- a/undercloud-vm-ironic-source.yaml
++++ b/undercloud-vm-ironic-source.yaml
+@@ -16,7 +16,7 @@ Resources:
+     Type: AWS::AutoScaling::LaunchConfiguration
+     Metadata:
+       ironic:
+-        db: mysql://ironic:unset@localhost/ironic
++        db: mysql://ironic:unset@127.0.0.1/ironic
+         service-password:
+           Ref: IronicPassword
+         virtual_power_ssh_key:
+@@ -25,7 +25,7 @@ Resources:
+         compute_hostname: undercloud
+         compute_driver: ironic.nova.virt.ironic.driver.IronicDriver
+         compute_manager: ironic.nova.compute.manager.ClusteredComputeManager
+-        db: mysql://nova:unset@localhost/nova
++        db: mysql://nova:unset@127.0.0.1/nova
+         default_ephemeral_format: ext4
+         host: 127.0.0.1
+         metadata-proxy: false
+diff --git a/undercloud-vm-source.yaml b/undercloud-vm-source.yaml
+index 48a6fff..f991e3e 100644
+--- a/undercloud-vm-source.yaml
++++ b/undercloud-vm-source.yaml
+@@ -26,7 +26,7 @@ Resources:
+       nova:
+         compute_hostname: undercloud
+         compute_driver: baremetal.driver.BareMetalDriver
+-        db: mysql://nova:unset@localhost/nova
++        db: mysql://nova:unset@127.0.0.1/nova
+         default_ephemeral_format: ext4
+         host: 127.0.0.1
+         metadata-proxy: false
+@@ -36,7 +36,7 @@ Resources:
+         baremetal:
+           arch:
+             Ref: BaremetalArch
+-          db: mysql://nova:unset@localhost/nova_bm
++          db: mysql://nova:unset@127.0.0.1/nova_bm
+           power_manager:
+             Ref: PowerManager
+           pxe_deploy_timeout: 2400
+-- 
+1.9.0
+
