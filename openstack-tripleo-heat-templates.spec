@@ -1,7 +1,7 @@
 Name:		openstack-tripleo-heat-templates
 Summary:	Heat templates for TripleO
 Version:	0.4.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	ASL 2.0
 Group:		System Environment/Base
 URL:		https://wiki.openstack.org/wiki/TripleO
@@ -65,6 +65,9 @@ cp -ar *.yaml %{buildroot}/%{_datadir}/%{name}
 %{_bindir}/tripleo-heat-merge
 
 %changelog
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.4.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Mon Apr 14 2014 James Slagle <jslagle@redhat.com> - 0.4.4-1
 - Bump to 0.4.4 and update patches
 
