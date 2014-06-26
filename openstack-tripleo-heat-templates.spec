@@ -1,7 +1,7 @@
 Name:		openstack-tripleo-heat-templates
 Summary:	Heat templates for TripleO
 Version:	0.4.4
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	ASL 2.0
 Group:		System Environment/Base
 URL:		https://wiki.openstack.org/wiki/TripleO
@@ -20,13 +20,6 @@ Patch0003:	Expose-dnsmasq-options.patch
 
 # https://review.openstack.org/#/c/85534/
 Patch0004:	Use-127.0.0.1-in-mysql-connection-url.patch
-
-# Per: # https://github.com/openstack/tripleo-image-elements/tree/master/elements/qpidd,
-# this patch sed's the templates to switch them all over to use qpid, which is
-# the default we want for RDO.
-# sed -i "s/rabbit:/qpid:/" *.yaml
-Patch0005:	Use-qpid.patch
-
 
 BuildArch:	noarch
 BuildRequires:	python2-devel
@@ -47,7 +40,6 @@ building Heat Templates to do deployments of OpenStack.
 %patch0002 -p1
 %patch0003 -p1
 %patch0004 -p1
-%patch0005 -p1
 
 %build
 %{__python2} setup.py build
@@ -65,6 +57,9 @@ cp -ar *.yaml %{buildroot}/%{_datadir}/%{name}
 %{_bindir}/tripleo-heat-merge
 
 %changelog
+* Thu Jun 26 2014 James Slagle <jslagle@redhat.com> - 0.4.4-3
+- Remove patch that swiched to qpid, we are back to rabbit
+
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.4.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
