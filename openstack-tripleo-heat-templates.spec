@@ -7,20 +7,6 @@ Group:		System Environment/Base
 URL:		https://wiki.openstack.org/wiki/TripleO
 Source0:	http://tarballs.openstack.org/tripleo-heat-templates/tripleo-heat-templates-%{version}.tar.gz
 
-# Add BlockStorage0Config and enable_tunneling to block-storage
-# https://review.openstack.org/83416
-Patch0001:	Add-BlockStorage0Config-Resource.patch
-
-# Add enable_tunneling to swift storage
-# https://review.openstack.org/83417
-Patch0002:	Add-enable_tunneling-to-swift-storage-metadata.patch
-
-# https://review.openstack.org/#/c/82803/
-Patch0003:	Expose-dnsmasq-options.patch
-
-# https://review.openstack.org/#/c/85534/
-Patch0004:	Use-127.0.0.1-in-mysql-connection-url.patch
-
 BuildArch:	noarch
 BuildRequires:	python2-devel
 BuildRequires:	python-setuptools
@@ -34,12 +20,7 @@ OpenStack TripleO Heat Templates is a collection of templates and tools for
 building Heat Templates to do deployments of OpenStack.
 
 %prep
-%setup -q -n tripleo-heat-templates-%{version}
-
-%patch0001 -p1
-%patch0002 -p1
-%patch0003 -p1
-%patch0004 -p1
+%setup -q -n tripleo-heat-templates-%{upstream_version}
 
 %build
 %{__python2} setup.py build
@@ -52,7 +33,7 @@ cp -ar *.yaml %{buildroot}/%{_datadir}/%{name}
 %files
 %doc README.md LICENSE examples
 %{python2_sitelib}/tripleo_heat_merge
-%{python2_sitelib}/tripleo_heat_templates-%{version}*.egg-info
+%{python2_sitelib}/tripleo_heat_templates-*.egg-info
 %{_datadir}/%{name}
 %{_bindir}/tripleo-heat-merge
 
