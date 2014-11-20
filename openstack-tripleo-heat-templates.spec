@@ -1,7 +1,7 @@
 Name:		openstack-tripleo-heat-templates
 Summary:	Heat templates for TripleO
-Version:	0.4.4
-Release:	3%{?dist}
+Version:    XXX
+Release:    XXX{?dist}
 License:	ASL 2.0
 Group:		System Environment/Base
 URL:		https://wiki.openstack.org/wiki/TripleO
@@ -38,6 +38,36 @@ cp -ar *.yaml %{buildroot}/%{_datadir}/%{name}
 %{_bindir}/tripleo-heat-merge
 
 %changelog
+* Mon Oct 20 2014 James Slagle <jslagle@redhat.com> 0.7.9-5
+- Update patches
+
+* Mon Oct 20 2014 James Slagle <jslagle@redhat.com> 0.7.9-4
+- Update patches
+
+* Wed Oct 15 2014 James Slagle <jslagle@redhat.com> 0.7.9-3
+- Adding SNMP related parameters to storage templates
+- Add converted version of block and object storage
+- Compute and controller templates without merge.py
+
+* Wed Oct 15 2014 James Slagle <jslagle@redhat.com> 0.7.9-2
+
+
+* Wed Oct 15 2014 James Slagle <jslagle@redhat.com> 0.7.9-1
+- Update to upstream 0.7.9
+
+* Tue Oct 07 2014 James Slagle <jslagle@redhat.com> 0.7.7-3
+- Adding SNMP related parameters to storage templates
+
+* Mon Oct 06 2014 James Slagle <jslagle@redhat.com> 0.7.7-2
+- Add converted version of block and object storage
+- Compute and controller templates without merge.py
+
+* Mon Sep 29 2014 James Slagle <jslagle@redhat.com> 0.7.7-1
+- Update to upstream 0.7.7
+
+* Mon Sep 15 2014 James Slagle <jslagle@redhat.com> 0.7.6-1
+- Update to upstream 0.7.6
+
 * Thu Jun 26 2014 James Slagle <jslagle@redhat.com> - 0.4.4-3
 - Remove patch that swiched to qpid, we are back to rabbit
 
