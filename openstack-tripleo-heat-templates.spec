@@ -29,6 +29,7 @@ building Heat Templates to do deployments of OpenStack.
 %{__python2} setup.py install -O1 --skip-build --root=%{buildroot}
 install -d -m 755 %{buildroot}/%{_datadir}/%{name}
 cp -ar *.yaml %{buildroot}/%{_datadir}/%{name}
+cp -ar puppet %{buildroot}/%{_datadir}/%{name}
 
 %files
 %doc README.md LICENSE examples
