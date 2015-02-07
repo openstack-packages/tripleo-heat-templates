@@ -1,0 +1,7 @@
+Code-Review+2: Dan Prince <dprince@redhat.com>
+Verified+1: Dan Prince <dprince@redhat.com>
+Submitted-by: Dan Prince <dprince@redhat.com>
+Submitted-at: Sat, 07 Feb 2015 01:50:22 +0100
+Reviewed-on: https://review.gerrithub.io/215384
+Project: openstack-packages/tripleo-heat-templates
+Branch: refs/heads/f20-master
