@@ -32,6 +32,8 @@ cp -ar *.yaml %{buildroot}/%{_datadir}/%{name}
 cp -ar puppet %{buildroot}/%{_datadir}/%{name}
 cp -ar firstboot %{buildroot}/%{_datadir}/%{name}
 cp -ar extraconfig %{buildroot}/%{_datadir}/%{name}
+cp -ar environments %{buildroot}/%{_datadir}/%{name}
+cp -ar network %{buildroot}/%{_datadir}/%{name}
 
 %files
 %doc README.md LICENSE examples
