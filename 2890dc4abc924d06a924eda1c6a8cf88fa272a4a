@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ae5cdf2_5279392e",
+        "filename": "openstack-tripleo-heat-templates.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2015-09-16T18:10:35Z",
+      "side": 1,
+      "message": "note the \"if\" statement is used since the patch providing the validation-scripts directory has not yet landed",
+      "revId": "2890dc4abc924d06a924eda1c6a8cf88fa272a4a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
