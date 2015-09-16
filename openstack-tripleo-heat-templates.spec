@@ -34,6 +34,9 @@ cp -ar firstboot %{buildroot}/%{_datadir}/%{name}
 cp -ar extraconfig %{buildroot}/%{_datadir}/%{name}
 cp -ar environments %{buildroot}/%{_datadir}/%{name}
 cp -ar network %{buildroot}/%{_datadir}/%{name}
+if [ -d validation-scripts ]; then
+  cp -ar validation-scripts %{buildroot}/%{_datadir}/%{name}
+fi
 
 %files
 %doc README.md LICENSE examples
