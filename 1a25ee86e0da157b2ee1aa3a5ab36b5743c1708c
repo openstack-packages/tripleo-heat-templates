@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dab895d6_1c5e19ea",
+        "filename": "openstack-tripleo-heat-templates.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1003941
+      },
+      "writtenOn": "2015-10-07T11:09:21Z",
+      "side": 1,
+      "message": "While we are at it, could we add the %license tag for LICENSE ?",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "1a25ee86e0da157b2ee1aa3a5ab36b5743c1708c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
