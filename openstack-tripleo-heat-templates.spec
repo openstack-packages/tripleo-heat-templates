@@ -37,9 +37,12 @@ cp -ar network %{buildroot}/%{_datadir}/%{name}
 if [ -d validation-scripts ]; then
   cp -ar validation-scripts %{buildroot}/%{_datadir}/%{name}
 fi
+if [ -d examples ]; then
+  rm -rf examples
+fi
 
 %files
-%doc README.md LICENSE examples
+%doc README.md LICENSE
 %{python2_sitelib}/tripleo_heat_merge
 %{python2_sitelib}/tripleo_heat_templates-*.egg-info
 %{_datadir}/%{name}
