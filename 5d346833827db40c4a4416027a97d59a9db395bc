@@ -1,0 +1,9 @@
+Verified+1: rdo-ci-jenkins <whayutin+rdocijenkins@redhat.com>
+Code-Review+1: Steven Hardy <shardy@redhat.com>
+Code-Review+1: Javier Peña <jpena@redhat.com>
+Code-Review+2: Dan Prince <dprince@redhat.com>
+Submitted-by: Dan Prince <dprince@redhat.com>
+Submitted-at: Wed, 07 Oct 2015 18:07:00 +0200
+Reviewed-on: https://review.gerrithub.io/249180
+Project: openstack-packages/tripleo-heat-templates
+Branch: refs/heads/rpm-master
