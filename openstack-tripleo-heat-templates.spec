@@ -42,7 +42,7 @@ if [ -d examples ]; then
 fi
 
 %files
-%doc README.md LICENSE
+%doc README* LICENSE
 %{python2_sitelib}/tripleo_heat_merge
 %{python2_sitelib}/tripleo_heat_templates-*.egg-info
 %{_datadir}/%{name}
