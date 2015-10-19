@@ -1,13 +1,21 @@
+%global commit0 0f2bf59910639c62442aa3a1266ea4e67d76d25a
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global service tripleo-heat-templates
+
+%{!?upstream_version: %global upstream_version %{version}}
+
 Name:		openstack-tripleo-heat-templates
 Summary:	Heat templates for TripleO
-Version:    XXX
-Release:    XXX{?dist}
+Version:    0.8.7
+Release:    1%{?dist}
 License:	ASL 2.0
 Group:		System Environment/Base
 URL:		https://wiki.openstack.org/wiki/TripleO
-Source0:	http://tarballs.openstack.org/tripleo-heat-templates/tripleo-heat-templates-%{version}.tar.gz
+# Once we have stable branches and stable releases we can go back to using release tarballs
+Source0:  https://github.com/openstack/%{service}/archive/%{commit0}.tar.gz#/%{service}-%{shortcommit0}.tar.gz
 
 BuildArch:	noarch
+BuildRequires:  git
 BuildRequires:	python2-devel
 BuildRequires:	python-setuptools
 BuildRequires:	python-d2to1
@@ -20,7 +28,7 @@ OpenStack TripleO Heat Templates is a collection of templates and tools for
 building Heat Templates to do deployments of OpenStack.
 
 %prep
-%setup -q -n tripleo-heat-templates-%{upstream_version}
+%autosetup -n %{service}-%{commit0} -S git
 
 %build
 %{__python2} setup.py build
@@ -50,6 +58,9 @@ fi
 %{_bindir}/tripleo-heat-merge
 
 %changelog
+* Mon Oct 19 2015 John Trowbridge <trown@redhat.com> - 0.8.7-1
+- Use a source tarball for a git hash that has passed delorean CI for liberty release
+
 * Mon Oct 20 2014 James Slagle <jslagle@redhat.com> 0.7.9-5
 - Update patches
 
@@ -117,7 +128,7 @@ fi
 - Use name macro when copying templates in install
 
 * Mon Feb 17 2014 James Slagle <jslagle@redhat.com> - 0.4.0-1
-- Update spec file for Fedora Packaging 
+- Update spec file for Fedora Packaging
 
 * Thu Sep 19 2013 Ben Nemec <bnemec@redhat.com> - 0.0.1-1
 - First build of tripleo-heat-templates
