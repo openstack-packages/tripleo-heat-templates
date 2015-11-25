@@ -1,0 +1,7 @@
+Verified+1: rdo-ci-jenkins <whayutin+rdocijenkins@redhat.com>
+Code-Review+2: James Slagle <jslagle@redhat.com>
+Submitted-by: James Slagle <jslagle@redhat.com>
+Submitted-at: Wed, 25 Nov 2015 20:48:06 +0100
+Reviewed-on: https://review.gerrithub.io/253331
+Project: openstack-packages/tripleo-heat-templates
+Branch: refs/heads/rpm-master
