@@ -40,13 +40,16 @@ if [ -d examples ]; then
   rm -rf examples
 fi
 
+if [ -d %{buildroot}/%{python2_sitelib}/tripleo_heat_merge ]; then
+  rm -rf %{buildroot}/%{python2_sitelib}/tripleo_heat_merge
+  rm -f %{buildroot}/%{_bindir}/tripleo-heat-merge
+fi
+
 %files
 %doc README*
 %license LICENSE
-%{python2_sitelib}/tripleo_heat_merge
 %{python2_sitelib}/tripleo_heat_templates-*.egg-info
 %{_datadir}/%{name}
-%{_bindir}/tripleo-heat-merge
 
 %changelog
 * Mon Oct 20 2014 James Slagle <jslagle@redhat.com> 0.7.9-5
