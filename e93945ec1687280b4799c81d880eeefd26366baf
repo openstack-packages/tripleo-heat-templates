@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa81d914_9804cc16",
+        "filename": "openstack-tripleo-heat-templates.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002601
+      },
+      "writtenOn": "2016-01-08T09:35:39Z",
+      "side": 1,
+      "message": "s/commit0/upstream_version/\n\nThis breaks the build in delorean",
+      "revId": "e93945ec1687280b4799c81d880eeefd26366baf",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
