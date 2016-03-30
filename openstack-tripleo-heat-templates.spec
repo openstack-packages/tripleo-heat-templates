@@ -1,11 +1,14 @@
+
+%{!?upstream_version: %global upstream_version %{version}%{?milestone}}
+
 Name:		openstack-tripleo-heat-templates
 Summary:	Heat templates for TripleO
-Version:    XXX
-Release:    XXX
+Version:    2.0.0
+Release:    1%{?dist}
 License:	ASL 2.0
 Group:		System Environment/Base
 URL:		https://wiki.openstack.org/wiki/TripleO
-Source0:	http://tarballs.openstack.org/tripleo-heat-templates/tripleo-heat-templates-%{version}.tar.gz
+Source0:	http://tarballs.openstack.org/tripleo-heat-templates/tripleo-heat-templates-%{version}%{?milestone}.tar.gz
 
 BuildArch:	noarch
 BuildRequires:	python2-devel
@@ -52,3 +55,5 @@ fi
 %{_datadir}/%{name}
 
 %changelog
+* Wed Mar 30 2016 RDO <rdo-list@redhat.com> 2.0.0-1
+- RC1 Rebuild for Mitaka RC1 
