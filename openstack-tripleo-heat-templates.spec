@@ -1,29 +1,34 @@
+%global commit f3215d28ba6693e8e513cc3ae2aba3e500a0a4f0
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global alphatag .%{shortcommit}git
+%global project tripleo-heat-templates
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
-Name:		openstack-tripleo-heat-templates
-Summary:	Heat templates for TripleO
-Version:    2.0.0
-Release:    1%{?dist}
-License:	ASL 2.0
-Group:		System Environment/Base
-URL:		https://wiki.openstack.org/wiki/TripleO
-Source0:	http://tarballs.openstack.org/tripleo-heat-templates/tripleo-heat-templates-%{version}%{?milestone}.tar.gz
+Name:           openstack-tripleo-heat-templates
+Summary:        Heat templates for TripleO
+Version:        2.0.0
+Release:        2%{alphatag}%{?dist}
+License:        ASL 2.0
+Group:          System Environment/Base
+URL:            https://wiki.openstack.org/wiki/TripleO
+Source0:        https://github.com/openstack/%{project}/archive/%{commit}.tar.gz#/%{project}-%{commit}.tar.gz
+Patch0:         0001-Enable-galera-replication-for-Mariadb-10.1.patch
 
-BuildArch:	noarch
-BuildRequires:	python2-devel
-BuildRequires:	python-setuptools
-BuildRequires:	python-d2to1
-BuildRequires:	python-pbr
+BuildArch:      noarch
+BuildRequires:  python2-devel
+BuildRequires:  python-setuptools
+BuildRequires:  python-d2to1
+BuildRequires:  python-pbr
 
-Requires:	PyYAML
+Requires:       PyYAML
 
 %description
 OpenStack TripleO Heat Templates is a collection of templates and tools for
 building Heat Templates to do deployments of OpenStack.
 
 %prep
-%setup -q -n tripleo-heat-templates-%{upstream_version}
+%autosetup -n %{project}-%{commit} -S git
 
 %build
 %{__python2} setup.py build
@@ -55,5 +60,8 @@ fi
 %{_datadir}/%{name}
 
 %changelog
+* Sat Apr  2 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 2.0.0-2.f3215d2git
+- Fix MariaDB and Pacemaker issues
+
 * Wed Mar 30 2016 RDO <rdo-list@redhat.com> 2.0.0-1
 - RC1 Rebuild for Mitaka RC1 
