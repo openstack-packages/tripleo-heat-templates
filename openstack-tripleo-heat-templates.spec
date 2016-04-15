@@ -8,7 +8,7 @@
 Name:           openstack-tripleo-heat-templates
 Summary:        Heat templates for TripleO
 Version:        2.0.0
-Release:        2%{alphatag}%{?dist}
+Release:        3%{alphatag}%{?dist}
 License:        ASL 2.0
 Group:          System Environment/Base
 URL:            https://wiki.openstack.org/wiki/TripleO
@@ -20,6 +20,7 @@ BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
 BuildRequires:  python-d2to1
 BuildRequires:  python-pbr
+BuildRequires:  git
 
 Requires:       PyYAML
 
@@ -60,6 +61,9 @@ fi
 %{_datadir}/%{name}
 
 %changelog
+* Fri Apr 15 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 2.0.0-3.f3215d2git
+- Fix BR: git
+
 * Sat Apr  2 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 2.0.0-2.f3215d2git
 - Fix MariaDB and Pacemaker issues
 
